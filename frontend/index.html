@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summoners Reunion | AI Chat Agent</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background elements for futuristic effect -->
+    <div class="background-grid"></div>
+    <div class="scanlines"></div>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <div class="hexagon"></div>
+                    <span class="logo-text">SR</span>
+                </div>
+                <h1 class="logo-title">SUMMONERS REUNION</h1>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot" id="statusDot"></div>
+                <span class="status-text" id="statusText">Connecting...</span>
+            </div>
+        </header>
+
+        <!-- Chat container -->
+        <main class="chat-container">
+            <!-- Messages area -->
+            <div class="messages-wrapper" id="messagesWrapper">
+                <div class="messages" id="messages">
+                    <!-- Welcome message -->
+                    <div class="message assistant welcome-message">
+                        <div class="message-avatar assistant-avatar">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-sender">Braum Swanson</span>
+                                <span class="message-time" id="welcomeTime"></span>
+                            </div>
+                            <div class="message-text">
+                                <p>Welcome to Summoners Reunion! I'm your AI assistant powered by Claude via AWS Bedrock.</p>
+                                <p>How can I help you today?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing indicator -->
+            <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                <div class="message-avatar assistant-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Input area -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <button id="suggestionsButton" class="suggestions-button" aria-label="Show suggested questions" title="Suggested Questions">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M9.09 9C9.325 8.33 9.776 7.768 10.364 7.409C10.952 7.05 11.644 6.918 12.322 7.038C13.001 7.159 13.616 7.523 14.063 8.064C14.51 8.605 14.759 9.288 14.76 10C14.76 12 11.76 13 11.76 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="17" r="1" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <textarea
+                        id="messageInput"
+                        class="message-input"
+                        placeholder="Type your message here..."
+                        rows="1"
+                    ></textarea>
+                    <button id="sendButton" class="send-button" aria-label="Send message">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <button id="clearButton" class="clear-button">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Clear Chat
+                    </button>
+                    <span class="model-info">Powered by Claude 3.5 Sonnet</span>
+                </div>
+            </div>
+
+            <!-- Suggestions Panel -->
+            <div class="suggestions-panel" id="suggestionsPanel" style="display: none;">
+                <div class="suggestions-header">
+                    <h3>Suggested Questions</h3>
+                    <button class="suggestions-close" id="closeSuggestions" aria-label="Close suggestions">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="suggestions-list">
+                    <button class="suggestion-item" data-suggestion="In games, what percentage was won when team gold share was above 10% and gold differential was equal to or greater than 2000?">
+                        <span class="suggestion-icon">📊</span>
+                        <span class="suggestion-text">In games, what percentage was won when team gold share was above 10% and gold differential was equal to or greater than 2000?</span>
+                    </button>
+                    <button class="suggestion-item" data-suggestion="When playing bottom, what support champions contributed to the highest team gold share and the highest damage share?">
+                        <span class="suggestion-icon">🤝</span>
+                        <span class="suggestion-text">When playing bottom, what support champions contributed to the highest team gold share and the highest damage share?</span>
+                    </button>
+                    <button class="suggestion-item" data-suggestion="How does first blood achieved correlate with victory and game length?">
+                        <span class="suggestion-icon">⚔️</span>
+                        <span class="suggestion-text">How does first blood achieved correlate with victory and game length?</span>
+                    </button>
+                    <button class="suggestion-item" data-suggestion="Based on kill/death ratios, minion scores, and team objectives, which enemy champions did I struggle the most against?">
+                        <span class="suggestion-icon">⚠️</span>
+                        <span class="suggestion-text">Based on kill/death ratios, minion scores, and team objectives, which enemy champions did I struggle the most against?</span>
+                    </button>
+                    <button class="suggestion-item" data-suggestion="Highlight the roles that most often lead to losses, and provide a plan with 3 targets to improve performance">
+                        <span class="suggestion-icon">📈</span>
+                        <span class="suggestion-text">Highlight the roles that most often lead to losses, and provide a plan with 3 targets to improve performance</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Error toast -->
+    <div class="toast error-toast" id="errorToast" style="display: none;">
+        <div class="toast-content">
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 8V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="12" cy="16" r="1" fill="currentColor"/>
+            </svg>
+            <span class="toast-message" id="errorMessage"></span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/ui.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+</html>
