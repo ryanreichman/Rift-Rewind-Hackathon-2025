@@ -1,0 +1,31 @@
+# AWS Lambda Environment Variables
+# Copy these to your Lambda function Configuration > Environment variables
+
+# AWS Bedrock Configuration
+BEDROCK_MODEL_ID=anthropic.claude-3-5-sonnet-20241022-v2:0
+AWS_REGION=us-east-1
+BEDROCK_RUNTIME_ENDPOINT=https://bedrock-runtime.us-east-1.amazonaws.com
+
+# Knowledge Base Configuration
+KNOWLEDGE_BASE_ID=YOUR_KB_ID_HERE
+KNOWLEDGE_BASE_ENABLED=true
+KB_MAX_RESULTS=5
+
+# Application Settings
+APP_NAME=Summoners Reunion AI
+DEBUG=false
+MAX_CONVERSATION_HISTORY=10
+
+# CORS Configuration (UPDATE AFTER FRONTEND DEPLOYMENT!)
+CORS_ORIGINS=https://main.xxxxxx.amplifyapp.com
+
+# Model Parameters
+STREAMING_ENABLED=true
+MAX_TOKENS=4096
+TEMPERATURE=0.7
+TOP_P=0.9
+
+# Instructions:
+# 1. Replace YOUR_KB_ID_HERE with your actual Knowledge Base ID
+# 2. Update CORS_ORIGINS with your Amplify app URL after frontend deployment
+# 3. Adjust model parameters as needed for your use case

@@ -4,8 +4,9 @@
  */
 
 // Configuration
+// API URL can be set via window.API_BASE_URL (for deployment) or defaults to localhost
 const CONFIG = {
-    apiBaseUrl: 'http://localhost:8000',
+    apiBaseUrl: window.API_BASE_URL || 'http://localhost:8000',
     endpoints: {
         health: '/api/health',
         chatStream: '/api/chat/stream',

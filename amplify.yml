@@ -1,0 +1,37 @@
+version: 1
+
+# AWS Amplify build specification for Summoners Reunion AI Chat
+# This configuration deploys the frontend as a static site
+
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Preparing frontend for deployment..."
+        - echo "API Gateway URL should be set in Amplify environment variables as API_BASE_URL"
+
+    build:
+      commands:
+        - echo "Creating runtime configuration..."
+        # Create a config.js file with the API URL from environment variable
+        - |
+          cat > frontend/config.js << EOF
+          // Auto-generated configuration for AWS Amplify deployment
+          // API_BASE_URL is injected from Amplify environment variables
+          window.API_BASE_URL = '${API_BASE_URL}';
+          EOF
+        - echo "Configuration file created"
+        - cat frontend/config.js
+
+  artifacts:
+    # Specify the frontend directory as the root for deployment
+    baseDirectory: frontend
+    files:
+      - '**/*'
+
+  cache:
+    paths: []
+
+# Note: Backend (Python FastAPI) should be deployed separately as:
+# - AWS Lambda function with API Gateway
+# - Set the API Gateway URL as the API_BASE_URL environment variable in Amplify
