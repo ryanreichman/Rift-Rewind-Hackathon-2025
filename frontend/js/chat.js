@@ -184,6 +184,19 @@ async function handleSendMessage() {
     // Scroll to bottom
     scrollToBottom();
 
+    // Easter egg: Check for "supersaiyanash"
+    if (message.toLowerCase().includes('supersaiyanash')) {
+        // Display immediate response
+        const easterEggResponse = 'supersaiyanash smells';
+        const easterEggTime = new Date();
+        displayAssistantMessage(easterEggResponse, easterEggTime);
+        state.addMessage('assistant', easterEggResponse, easterEggTime);
+        scrollToBottom();
+
+        // Add a small delay before showing typing indicator for normal response
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+
     // Show typing indicator
     showTypingIndicator();
 
